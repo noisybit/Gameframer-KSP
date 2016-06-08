@@ -66,6 +66,9 @@ namespace Gameframer
         internal bool onVesselDestroyed = true;
         [Persistent]
         internal bool onVesselRecovered = true;
+
+        [Persistent]
+        internal bool offlineMode = true;
     }
 
 }

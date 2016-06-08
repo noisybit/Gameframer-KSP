@@ -38,6 +38,10 @@ namespace Gameframer
 
         private void _OnDone(OldJSONNode n)
         {
+            if (SettingsManager.Instance.settings.offlineMode)
+            {
+                KSP.IO.File.WriteAllText<MissionCreationWorker>(n.ToString(), n["data"]["_id"]+".json");
+            }
             GFLogger.Instance.AddDebugLog(String.Format("{0}.{1}", this.GetType().Name, System.Reflection.MethodBase.GetCurrentMethod().Name));
             callerDone(n);
         }

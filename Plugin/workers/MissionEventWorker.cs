@@ -35,9 +35,13 @@ namespace Gameframer
             }
 
             var data = new List<PostData>();
+            int cnt = 0;
             foreach (ImageFile i in images)
             {
-                // KSP.IO.File.WriteAllBytes<OmniController>(i.image, serverResponseEvent["description"] + "_" + i.filename);
+                if (SettingsManager.Instance.settings.offlineMode)
+                {
+                    KSP.IO.File.WriteAllBytes<OmniController>(i.image, serverResponse["_id"] + "_" + serverResponseEvent["_id"] + "_" + serverResponseEvent["description"] + (cnt++) + ".jpg");
+                }
                 data.Add(new MultiPostData("image", i.filename, i.image));
             }
 
@@ -55,7 +59,7 @@ namespace Gameframer
                 + "&endTimeInDays=" + endTimeInDays
                 + "&endTimeUniversal=" + endTimeUniversal;
             GFWorker.CreateWorker(where, url, data, "POST");
-            callerDone(serverResponse);
+            callerDone(serverResponse); 
         }
 
         private void _OnDone(OldJSONNode n)
@@ -64,6 +68,11 @@ namespace Gameframer
             // Debug.Log(n.ToString());
             serverResponse = n["data"];
             serverResponseEvent = GFDataUtils.FindEvent(eventToAdd, serverResponse["events"]);
+
+            if (SettingsManager.Instance.settings.offlineMode)
+            {                
+                KSP.IO.File.WriteAllText<MissionCreationWorker>(serverResponseEvent.ToString(), serverResponse["_id"] + "_" + serverResponseEvent["_id"] + "_" + serverResponseEvent["description"] + ".json");
+            }
 
             // do screenshots
             if (videoOption == VideoOptions.NONE)

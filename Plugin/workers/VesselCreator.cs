@@ -63,9 +63,13 @@ namespace Gameframer
             var craftFile = EditorLogic.fetch.ship.SaveShip();
             var data = new List<PostData>();
 
-            if (GFLogger.PRINT_DEBUG_INFO)
+            if (SettingsManager.Instance.settings.offlineMode)
             {
-                KSP.IO.File.WriteAllBytes<VesselCreator>(Encoding.UTF8.GetBytes(vesselJSON.ToString()), vesselJSON["name"] + ".json");
+                var id = System.Guid.NewGuid().ToString();
+                KSP.IO.File.WriteAllBytes<VesselCreator>(Encoding.UTF8.GetBytes(vesselJSON.ToString()), id + "_" + vesselJSON["name"] + ".json");
+                KSP.IO.File.WriteAllBytes<VesselCreator>(image, id + "_" + vesselJSON["name"] + ".jpg");
+                KSP.IO.File.WriteAllBytes<VesselCreator>(downImage, id + "_" + vesselJSON["name"] + "_2" + ".jpg");
+                KSP.IO.File.WriteAllBytes<VesselCreator>(Encoding.UTF8.GetBytes(craftFile.ToString()), id + "_" + vesselJSON["name"] + ".craft");
             }
 
             data.Add(new MultiPostData("json", System.Guid.NewGuid().ToString() + ".json", Encoding.UTF8.GetBytes(vesselJSON.ToString())));

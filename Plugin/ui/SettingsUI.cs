@@ -118,6 +118,9 @@ namespace Gameframer
             {
                 GUIManager.Instance.ToggleSettingsDetailsWindow();
             }*/
+            GUILayout.Space(20);
+            GUILayout.Label("Other", "HeaderStyle");
+            SettingsManager.Instance.settings.offlineMode = GUILayout.Toggle(SettingsManager.Instance.settings.offlineMode, "Debug (local data dump)", "ToggleStyle");
 
             GUILayout.Space(20);
             GUILayout.Label("Web Links", "HeaderStyle");           
@@ -127,7 +130,7 @@ namespace Gameframer
                 DoLink();
             }
             if (GUILayout.Button(new GUIContent("Forum thread", "Discuss the mod and Gameframer"), GUILayout.ExpandWidth(true)))
-            {
+            { 
                 Application.OpenURL(GameframerService.GetForumURL());
             }
             GUILayout.EndHorizontal();

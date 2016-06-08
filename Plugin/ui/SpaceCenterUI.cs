@@ -17,8 +17,16 @@ namespace Gameframer
         internal override void Awake()
         {
             LogFormatted("SpaceCenterUI: Awake()");
-            SettingsManager.Instance.Reload();
+            SettingsManager.Instance.Reload();       
             LogFormatted("SpaceCenterUI: 2");
+
+            // DEBUG MODE, only point to test servers
+            if (SettingsManager.Instance.settings.offlineMode)
+            {
+                GameframerService.SetHostname(1);
+                LogFormatted("Debug mode, hostname set to {0}", GameframerService.GetHostname());
+            }
+
             if (SettingsManager.Instance.settings.username.Length == 0)
             {
                 LogFormatted("No username, destroyed SpaceCenterUI");

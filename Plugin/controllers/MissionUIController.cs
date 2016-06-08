@@ -163,6 +163,13 @@ namespace Gameframer
             {
                 activeMission = result;
             }
+
+            if (SettingsManager.Instance.settings.offlineMode)
+            {
+                KSP.IO.File.WriteAllText<MissionCreationWorker>(activeMission.ToString(), activeMission["_id"] + ".json");
+            }
+
+
             var eventArray = activeMission["events"].AsArray;
             GFLogger.Instance.AddDebugLog("\tEvent count = {0}", eventArray.Count);
             eventList.RemoveRange(0, eventList.Count);
