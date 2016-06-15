@@ -232,7 +232,31 @@ namespace Gameframer
         #endregion
 
         #region Public Methods
+        public bool CaptureNewEvent(string name, string description)
+        {
+            if(FlightGlobals.ActiveVessel == null)
+            {
+                GFLogger.Instance.AddDebugLog("Gameframer: CaptureNewEvent, active vessel is null.");
+                return false;
+            }
 
+            try
+            {
+                var pv = FlightGlobals.ActiveVessel.protoVessel;
+                var missionID = pv.protoPartSnapshots[pv.rootIndex].missionID;
+                var flightID = pv.protoPartSnapshots[pv.rootIndex].flightID;
+
+                MissionEventWorker.CreateComponent(this.gameObject, missionID, flightID,
+                    GFDataUtils.GetEvent(name, description, FlightGlobals.ActiveVessel), VideoOptions.VIDEO, OnDone, OnFail);
+            }
+            catch (System.Exception e)
+            {
+                GFLogger.Instance.AddDebugLog("Gameframer: Exception CaptureNewEvent: {0}", e.Message);
+                return false;
+            }
+
+            return true;
+        }
         public void TogglePauseRecording()
         {
             if (state == OmniController.OmniState.Paused)
@@ -293,10 +317,14 @@ namespace Gameframer
         {
             return timelapseWorker.GetRecordingTimeElapsed();
         }
-        public void RenameMission(string newName, string description)
+        public void RenameMission(string newName, string description = null)
         {
             OldJSONNode namePatch = OldJSONNode.Parse("{}");
-            namePatch["name"] = newName;
+            if (name != null && name.Length > 0)
+            {
+                namePatch["name"] = newName;
+            }
+
             if (description != null && description.Length > 0)
             {
                 namePatch["description"] = description;
@@ -364,6 +392,7 @@ namespace Gameframer
                     CreateComponent(gameObject, missionName, missionDetails, missionPurpose, currentVessel, MissionPostDone, MissionPostFail);
             }
         }
+
         #endregion
 
 

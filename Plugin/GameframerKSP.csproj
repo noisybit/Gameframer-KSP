@@ -124,6 +124,7 @@
     <Compile Include="External\SimpleJson.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="GFPublicInterface.cs" />
     <Compile Include="ui\CommonUI.cs" />
     <Compile Include="ui\IntroUI.cs" />
     <Compile Include="ui\SettingsRecordDetailUI.cs" />
@@ -231,8 +232,8 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>copy "$(TargetPath)" "A:\Non-Steam\KSP-dev-version\GameData\Gameframer\Plugins"
+copy "$(TargetPath)" "Z:\Dropbox\Gameframer\Mod\Release\ZIP base\Gameframer\Plugins"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
