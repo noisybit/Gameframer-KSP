@@ -78,7 +78,7 @@ namespace Gameframer
             {
                 header = @"GeeForce";
 
-                String[] config = KSP.IO.File.ReadAllLines<FlightRecorder>("FlightRecorder.cfg", null);
+                String[] config = KSP.IO.File.ReadAllLines<FlightRecorder>("FlightRecorder.txt", null);
                 String configline;
                 String dataHeader;
                 String dataMemberName;
