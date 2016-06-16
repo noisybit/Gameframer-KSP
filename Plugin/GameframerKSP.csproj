@@ -128,6 +128,7 @@
     <Compile Include="ui\CommonUI.cs" />
     <Compile Include="ui\IntroUI.cs" />
     <Compile Include="ui\SettingsRecordDetailUI.cs" />
+    <Compile Include="ui\ExternalEventsUI.cs" />
     <Compile Include="util\GFDataUtils.cs" />
     <Compile Include="util\GFEnums.cs" />
     <Compile Include="util\GFLogger.cs" />

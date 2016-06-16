@@ -121,7 +121,13 @@ namespace Gameframer
             GUILayout.Space(20);
             GUILayout.Label("Other", "HeaderStyle");
             SettingsManager.Instance.settings.offlineMode = GUILayout.Toggle(SettingsManager.Instance.settings.offlineMode, "Debug (local data dump)", "ToggleStyle");
-
+            if (HighLogic.LoadedSceneIsFlight)
+            {
+                if (GUILayout.Button("Manage External Events"))
+                {
+                    GUIManager.Instance.ToggleExternalEventSettingsWindow();
+                }
+            }
             GUILayout.Space(20);
             GUILayout.Label("Web Links", "HeaderStyle");           
             GUILayout.BeginHorizontal();

@@ -7,6 +7,7 @@ namespace Gameframer
         private MissionsListUI missionsWindow;
         private DebugUI debugWindow;
         private SettingsUI settingsWindow;
+        private ExternalEventsUI externalEventsWindow;
 
         protected GUIManager()
         {
@@ -85,6 +86,19 @@ namespace Gameframer
             {
                 settingsWindow.Visible = false;
                 Destroy(settingsWindow);
+            }
+        }
+        public void ToggleExternalEventSettingsWindow()
+        {
+            if (externalEventsWindow == null || !externalEventsWindow.Visible)
+            {
+                externalEventsWindow = gameObject.AddComponent<ExternalEventsUI>();
+                externalEventsWindow.Visible = true;
+            }
+            else
+            {
+                externalEventsWindow.Visible = false;
+                Destroy(externalEventsWindow);
             }
         }
         public void ToggleMissionsWindow()
