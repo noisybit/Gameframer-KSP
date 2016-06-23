@@ -146,7 +146,7 @@ namespace KerbalEngineer.VesselSimulator
             this.gravity = theGravity;
             this.atmosphere = theAtmosphere;
             this.mach = theMach;
-            this.lastStage = Staging.lastStage;
+            this.lastStage = KSP.UI.Screens.StageManager.StageCount;
             this.maxMach = 1.0f;
             //MonoBehaviour.print("lastStage = " + lastStage);
 
