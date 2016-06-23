@@ -9,7 +9,7 @@ namespace Gameframer
 {
     public class VersionChecker : Singleton<VersionChecker>
     {
-        public static string VERSION = "0.6.2";
+        public static string VERSION = "0.6.3";
 
         public bool versionChecked { get; private set; }
         public bool versionOk { get; private set; }
